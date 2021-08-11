@@ -1,0 +1,43 @@
+package android.support.p007v4.view.accessibility;
+
+import android.os.Bundle;
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.view.accessibility.AccessibilityNodeProvider;
+import java.util.List;
+
+/* renamed from: android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean */
+class AccessibilityNodeProviderCompatJellyBean {
+
+    /* access modifiers changed from: package-private */
+    /* renamed from: android.support.v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean$AccessibilityNodeInfoBridge */
+    public interface AccessibilityNodeInfoBridge {
+        Object createAccessibilityNodeInfo(int i);
+
+        List<Object> findAccessibilityNodeInfosByText(String str, int i);
+
+        boolean performAction(int i, int i2, Bundle bundle);
+    }
+
+    AccessibilityNodeProviderCompatJellyBean() {
+    }
+
+    public static Object newAccessibilityNodeProviderBridge(final AccessibilityNodeInfoBridge bridge) {
+        return new AccessibilityNodeProvider() {
+            /* class android.support.p007v4.view.accessibility.AccessibilityNodeProviderCompatJellyBean.C01811 */
+
+            public AccessibilityNodeInfo createAccessibilityNodeInfo(int virtualViewId) {
+                return (AccessibilityNodeInfo) bridge.createAccessibilityNodeInfo(virtualViewId);
+            }
+
+            /* JADX DEBUG: Type inference failed for r0v1. Raw type applied. Possible types: java.util.List<java.lang.Object>, java.util.List<android.view.accessibility.AccessibilityNodeInfo> */
+            @Override // android.view.accessibility.AccessibilityNodeProvider
+            public List<AccessibilityNodeInfo> findAccessibilityNodeInfosByText(String text, int virtualViewId) {
+                return bridge.findAccessibilityNodeInfosByText(text, virtualViewId);
+            }
+
+            public boolean performAction(int virtualViewId, int action, Bundle arguments) {
+                return bridge.performAction(virtualViewId, action, arguments);
+            }
+        };
+    }
+}
